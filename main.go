@@ -17,5 +17,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(pocketClient.Get())
+	items, err := pocketClient.Get()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	d := make(map[string]*pocketclient.Item, 0)
+
+	for _, item := range *items {
+		existing := d[item.ResolvedURL]
+		if existing == nil {
+			d[item.ResolvedURL] = &item
+		} else {
+			fmt.Printf("--> Duplicate: %s\n", item.ResolvedTitle)
+		}
+	}
 }

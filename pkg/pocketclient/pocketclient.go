@@ -43,7 +43,7 @@ func (pocketClient *PocketClient) Authorize() error {
 	return nil
 }
 
-func (pocketClient PocketClient) Get() ([]Item, error) {
+func (pocketClient PocketClient) Get() (*[]Item, error) {
 	body := struct {
 		Status int             `json:"status"`
 		List   map[string]Item `json:"list"`
@@ -59,12 +59,12 @@ func (pocketClient PocketClient) Get() ([]Item, error) {
 		return nil, err
 	}
 
-	items := make([]Item, len(body.List))
+	var items []Item
 	for _, value := range body.List {
 		items = append(items, value)
 	}
 
-	return items, nil
+	return &items, nil
 }
 
 func (pocketClient PocketClient) getAccessToken(code string) (string, string, error) {
