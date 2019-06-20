@@ -9,9 +9,10 @@ package main
 
 import (
 	"fmt"
-	"kevinpollet/pocket-remove-duplicates/pkg/pocketclient"
 	"log"
 	"os"
+
+	"github.com/kevinpollet/pocket-remove-duplicates/pkg/pocketclient"
 )
 
 func main() {

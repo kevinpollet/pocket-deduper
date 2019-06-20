@@ -1,0 +1,32 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: ubuntu-16.04
+
+variables:
+  GOBIN:  $(GOPATH)/bin # Go binaries path
+  GOROOT: /usr/local/go1.12.4 # Go installation path
+  GOPATH: $(system.defaultWorkingDirectory)/gopath # Go workspace path
+  modulePath: $(GOPATH)/src/github.com/$(build.repository.name) # Path to the module's code
+
+steps:
+  - task: GoTool@0
+    inputs:
+      version: 1.12.4
+    displayName: Install Go
+
+  - script: |
+      mkdir -p $(GOBIN)
+      mkdir -p $(GOPATH)/pkg
+      mkdir -p $(modulePath)
+      shopt -s extglob
+      mv !(gopath) $(modulePath)
+    displayName: Set up the Go workspace
+
+  - script: go build -v .
+    workingDirectory: $(modulePath)
+    displayName: Go build
