@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"kevinpollet/pocket-remove-duplicates/pkg/pocketclient"
 	"log"
-
 	"os"
 )
 
@@ -18,5 +17,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(pocketClient)
+	fmt.Println(pocketClient.Get())
 }

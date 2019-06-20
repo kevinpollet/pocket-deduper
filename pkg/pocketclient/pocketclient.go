@@ -43,6 +43,30 @@ func (pocketClient *PocketClient) Authorize() error {
 	return nil
 }
 
+func (pocketClient PocketClient) Get() ([]Item, error) {
+	body := struct {
+		Status int             `json:"status"`
+		List   map[string]Item `json:"list"`
+	}{}
+
+	err := postJSON("https://getpocket.com/v3/get", map[string]string{
+		"consumer_key": pocketClient.ConsumerKey,
+		"access_token": pocketClient.accessToken,
+		"detailType":   "simple",
+	}, &body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	items := make([]Item, len(body.List))
+	for _, value := range body.List {
+		items = append(items, value)
+	}
+
+	return items, nil
+}
+
 func (pocketClient PocketClient) getAccessToken(code string) (string, string, error) {
 	body := struct {
 		Username    string `json:"username"`
