@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"kevinpollet/pocket-remove-duplicates/internal/pkg/pocketclient"
+	"kevinpollet/pocket-remove-duplicates/pkg/pocketclient"
 	"log"
 
 	"os"
