@@ -1,3 +1,10 @@
+/**
+ * Copyright © 2019 kevinpollet <pollet.kevin@gmail.com>`
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE.md file.
+ */
+
 package main
 
 import (
@@ -17,14 +24,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	items, err := pocketClient.Get()
+	itemList, err := pocketClient.Get()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	d := make(map[string]*pocketclient.Item, 0)
 
-	for _, item := range *items {
+	for _, item := range itemList.List {
 		existing := d[item.ResolvedURL]
 		if existing == nil {
 			d[item.ResolvedURL] = &item

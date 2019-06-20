@@ -1,3 +1,10 @@
+/**
+ * Copyright © 2019 kevinpollet <pollet.kevin@gmail.com>`
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE.md file.
+ */
+
 package pocketclient
 
 import (
@@ -43,28 +50,18 @@ func (pocketClient *PocketClient) Authorize() error {
 	return nil
 }
 
-func (pocketClient PocketClient) Get() (*[]Item, error) {
-	body := struct {
-		Status int             `json:"status"`
-		List   map[string]Item `json:"list"`
-	}{}
-
+func (pocketClient PocketClient) Get() (*ItemList, error) {
+	itemList := ItemList{}
 	err := postJSON("https://getpocket.com/v3/get", map[string]string{
 		"consumer_key": pocketClient.ConsumerKey,
 		"access_token": pocketClient.accessToken,
 		"detailType":   "simple",
-	}, &body)
+	}, &itemList)
 
 	if err != nil {
 		return nil, err
 	}
-
-	var items []Item
-	for _, value := range body.List {
-		items = append(items, value)
-	}
-
-	return &items, nil
+	return &itemList, nil
 }
 
 func (pocketClient PocketClient) getAccessToken(code string) (string, string, error) {
