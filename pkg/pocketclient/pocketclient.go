@@ -50,20 +50,6 @@ func (pocketClient *PocketClient) Authorize() error {
 	return nil
 }
 
-func (pocketClient PocketClient) Get() (*ItemList, error) {
-	itemList := ItemList{}
-	err := postJSON("https://getpocket.com/v3/get", map[string]string{
-		"consumer_key": pocketClient.ConsumerKey,
-		"access_token": pocketClient.accessToken,
-		"detailType":   "simple",
-	}, &itemList)
-
-	if err != nil {
-		return nil, err
-	}
-	return &itemList, nil
-}
-
 func (pocketClient PocketClient) getAccessToken(code string) (string, string, error) {
 	body := struct {
 		Username    string `json:"username"`
@@ -99,7 +85,7 @@ func (pocketClient PocketClient) getRequestToken(redirectURI string) (string, er
 	return body.Code, nil
 }
 
-func postJSON(url string, jsonBody map[string]string, decodedBody interface{}) error {
+func postJSON(url string, jsonBody interface{}, decodedBody interface{}) error {
 	body, err := json.Marshal(jsonBody)
 	if err != nil {
 		return err
