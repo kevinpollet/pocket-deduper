@@ -27,6 +27,8 @@ steps:
       mv !(gopath) $(modulePath)
     displayName: Set up the Go workspace
 
-  - script: go build -v .
-    workingDirectory: $(modulePath)
+  - task: Go@0
+    inputs:
+      command: build
+      workingDirectory: $(modulePath)
     displayName: Go build
