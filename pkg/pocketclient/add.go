@@ -34,7 +34,8 @@ func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
 		params,
 	}
 
-	res, err := resty.R().
+	res, err := resty.
+		R().
 		SetResult(&AddResponse{}).
 		SetBody(&body).
 		Post(client.resolveURL("/add"))
