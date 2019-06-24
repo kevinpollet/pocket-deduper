@@ -7,6 +7,8 @@
 
 package pocketclient
 
+const DefaultBaseURL = "https://getpocket.com/v3"
+
 type PocketClient struct {
   BaseURL     string
 	ConsumerKey string
@@ -18,5 +20,5 @@ func (client *PocketClient) resolveURL(path string) string {
   if client.BaseURL != "" {
     return client.BaseURL + path
   }
-  return "https://getpocket.com/v3" + path
+  return DefaultBaseURL + path
 }
