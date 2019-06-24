@@ -31,11 +31,13 @@ steps:
   - task: Go@0
     inputs:
       command: get
+      arguments: -v -d ./...
       workingDirectory: $(modulePath)
     displayName: Go get dependencies
 
   - task: Go@0
     inputs:
       command: build
+      arguments: -v
       workingDirectory: $(modulePath)
     displayName: Go build
