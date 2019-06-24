@@ -7,12 +7,6 @@
 
 package pocketclient
 
-import (
-	"bytes"
-	"encoding/json"
-	"net/http"
-)
-
 type PocketClient struct {
 	ConsumerKey string
 	username    string

@@ -42,7 +42,7 @@ type GetResponse struct {
 }
 
 func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
-	data := struct {
+	body := struct {
 		ConsumerKey string `json:"consumer_key"`
 		AccessToken string `json:"access_token"`
 		*GetParams
@@ -55,7 +55,7 @@ func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
 	res, err := resty.
     R().
     SetResult(&GetResponse{}).
-		SetBody(&data).
+		SetBody(&body).
 		Post("https://getpocket.com/v3/get")
 
 	if err != nil {
