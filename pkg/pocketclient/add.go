@@ -7,6 +7,10 @@
 
 package pocketclient
 
+import (
+  "gopkg.in/resty.v1"
+)
+
 type AddParams struct {
 	URL     string `json:"url"`
 	Title   string `json:"title,omitempty"`
@@ -28,13 +32,16 @@ func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
 		ConsumerKey: client.ConsumerKey,
 		AccessToken: client.accessToken,
 		AddParams:   params,
-	}
+  }
 
-	res := AddResponse{}
-	err := postJSON("https://getpocket.com/v3/add", data, &res)
+  res, err := resty.R().
+    SetResult(&AddResponse{}).
+    SetBody(&data).
+    Post("https://getpocket.com/v3/add")
+
 	if err != nil {
 		return nil, err
 	}
 
-	return &res, nil
+	return res.Result().(*AddResponse), nil
 }

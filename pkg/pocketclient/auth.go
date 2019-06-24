@@ -10,8 +10,18 @@ package pocketclient
 import (
 	"context"
 	"fmt"
-	"net/http"
+  "net/http"
+  "gopkg.in/resty.v1"
 )
+
+type requestTokenResponse struct {
+  Code string `json:"code"`
+}
+
+type accessTokenResponse struct {
+  Username string `json:"username"`
+  AccessToken string `json:"access_token"`
+}
 
 func (client *PocketClient) Authorize() error {
 	redirectURI := "http://localhost:8000"
@@ -23,9 +33,9 @@ func (client *PocketClient) Authorize() error {
 	router := http.NewServeMux()
 	server := http.Server{Addr: redirectURI[7:], Handler: router}
 	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
-		username, accessToken, _ := client.getAccessToken(code)
-		client.username = username
-		client.accessToken = accessToken
+		res, _ := client.getAccessToken(code.Code)
+		client.username = res.Username
+		client.accessToken = res.AccessToken
 
 		writer.WriteHeader(200)
 		writer.Write([]byte("Close the tab"))
@@ -34,7 +44,7 @@ func (client *PocketClient) Authorize() error {
 		}()
 	})
 
-	fmt.Printf("Open: https://getpocket.com/auth/authorize?request_token=%s&redirect_uri=%s\n", code, redirectURI)
+	fmt.Printf("Open: https://getpocket.com/auth/authorize?request_token=%s&redirect_uri=%s\n", code.Code, redirectURI)
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		return err
@@ -42,37 +52,37 @@ func (client *PocketClient) Authorize() error {
 	return nil
 }
 
-func (client *PocketClient) getAccessToken(code string) (string, string, error) {
-	body := struct {
-		Username    string `json:"username"`
-		AccessToken string `json:"access_token"`
-	}{}
+func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, error) {
+  res, err := resty.
+    R().
+    SetHeader("X-Accept", "application/json").
+    SetBody(&map[string]string {
+      "consumer_key": client.ConsumerKey,
+		  "code":         code,
+    }).
+    SetResult(&accessTokenResponse{}).
+    Post("https://getpocket.com/v3/oauth/authorize")
 
-	err := postJSON("https://getpocket.com/v3/oauth/authorize", map[string]string{
-		"consumer_key": client.ConsumerKey,
-		"code":         code,
-	}, &body)
 	if err != nil {
-		return "", "", err
+		return nil, err
 	}
 
-	return body.Username, body.AccessToken, nil
+	return res.Result().(*accessTokenResponse), nil
 }
 
-func (client *PocketClient) getRequestToken(redirectURI string) (string, error) {
-	body := struct {
-		Code string `json:"code"`
-	}{}
-
-	err := postJSON("https://getpocket.com/v3/oauth/request",
-		map[string]string{
-			"consumer_key": client.ConsumerKey,
-			"redirect_uri": redirectURI,
-		}, &body)
+func (client *PocketClient) getRequestToken(redirectURI string) (*requestTokenResponse, error) {
+  res, err := resty.
+    R().
+    SetHeader("X-Accept", "application/json").
+    SetBody(&map[string]string {
+      "consumer_key": client.ConsumerKey,
+      "redirect_uri": redirectURI,
+    }).
+    SetResult(&requestTokenResponse{}).
+    Post("https://getpocket.com/v3/oauth/request")
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-
-	return body.Code, nil
+	return res.Result().(*requestTokenResponse), nil
 }

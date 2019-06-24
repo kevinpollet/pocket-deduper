@@ -25,14 +25,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	itemList, err := pocketClient.Get(&pocketclient.GetParams{ContentType: "video"})
+	res, err := pocketClient.Get(&pocketclient.GetParams{ContentType: "video"})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	d := make(map[string]*pocketclient.Item, 0)
 
-	for _, item := range itemList.List {
+	for _, item := range res.List {
 		existing := d[item.ResolvedURL]
 		if existing == nil {
 			d[item.ResolvedURL] = &item

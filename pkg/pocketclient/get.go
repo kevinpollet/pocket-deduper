@@ -7,21 +7,9 @@
 
 package pocketclient
 
-type ItemList struct {
-	Status int             `json:"status"`
-	List   map[string]Item `json:"list"`
-}
-
-type Item struct {
-	ID            string `json:"item_id"`
-	ResolvedID    string `json:"resolved_id"`
-	GivenURL      string `json:"given_url"`
-	ResolvedURL   string `json:"resolved_url"`
-	GivenTitle    string `json:"given_title"`
-	ResolvedTitle string `json:"resolved_title"`
-	Favorite      string `json:"favorite"`
-	Status        string `json:"status"`
-}
+import (
+  "gopkg.in/resty.v1"
+)
 
 type GetParams struct {
 	State       string `json:"state,omitempty"`
@@ -37,7 +25,23 @@ type GetParams struct {
 	Offset      int    `json:"offset,omitempty"`
 }
 
-func (client *PocketClient) Get(params *GetParams) (*ItemList, error) {
+type Item struct {
+	ID            string `json:"item_id"`
+	ResolvedID    string `json:"resolved_id"`
+	GivenURL      string `json:"given_url"`
+	ResolvedURL   string `json:"resolved_url"`
+	GivenTitle    string `json:"given_title"`
+	ResolvedTitle string `json:"resolved_title"`
+	Favorite      string `json:"favorite"`
+	Status        string `json:"status"`
+}
+
+type GetResponse struct {
+	Status int             `json:"status"`
+	List   map[string]Item `json:"list"`
+}
+
+func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
 	data := struct {
 		ConsumerKey string `json:"consumer_key"`
 		AccessToken string `json:"access_token"`
@@ -48,11 +52,15 @@ func (client *PocketClient) Get(params *GetParams) (*ItemList, error) {
 		GetParams:   params,
 	}
 
-	itemList := ItemList{}
-	err := postJSON("https://getpocket.com/v3/get", data, &itemList)
+	res, err := resty.
+    R().
+    SetResult(&GetResponse{}).
+		SetBody(&data).
+		Post("https://getpocket.com/v3/get")
+
 	if err != nil {
 		return nil, err
 	}
 
-	return &itemList, nil
+	return res.Result().(*GetResponse), nil
 }
