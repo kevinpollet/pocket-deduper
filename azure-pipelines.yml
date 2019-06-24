@@ -29,6 +29,12 @@ steps:
 
   - task: Go@0
     inputs:
+      command: get
+      workingDirectory: $(modulePath)
+    displayName: Go get dependencies
+
+  - task: Go@0
+    inputs:
       command: build
       workingDirectory: $(modulePath)
     displayName: Go build
