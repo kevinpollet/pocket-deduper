@@ -8,7 +8,7 @@
 package pocketclient
 
 import (
-  "gopkg.in/resty.v1"
+	"gopkg.in/resty.v1"
 )
 
 type GetParams struct {
@@ -47,14 +47,14 @@ func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
 		AccessToken string `json:"access_token"`
 		*GetParams
 	}{
-    client.ConsumerKey,
-    client.accessToken,
-    params,
-  }
+		client.ConsumerKey,
+		client.accessToken,
+		params,
+	}
 
 	res, err := resty.
-    R().
-    SetResult(&GetResponse{}).
+		R().
+		SetResult(&GetResponse{}).
 		SetBody(&body).
 		Post(client.resolveURL("/get"))
 

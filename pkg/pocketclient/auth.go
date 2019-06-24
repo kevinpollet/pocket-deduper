@@ -10,17 +10,18 @@ package pocketclient
 import (
 	"context"
 	"fmt"
-  "net/http"
-  "gopkg.in/resty.v1"
+	"net/http"
+
+	"gopkg.in/resty.v1"
 )
 
 type requestTokenResponse struct {
-  Code string `json:"code"`
+	Code string `json:"code"`
 }
 
 type accessTokenResponse struct {
-  Username string `json:"username"`
-  AccessToken string `json:"access_token"`
+	Username    string `json:"username"`
+	AccessToken string `json:"access_token"`
 }
 
 func (client *PocketClient) Authorize() error {
@@ -53,20 +54,20 @@ func (client *PocketClient) Authorize() error {
 }
 
 func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, error) {
-  body := struct {
-    ConsumerKey string `json:"consumer_key"`
-		Code string `json:"code"`
-  } {
-    client.ConsumerKey,
-    code,
-  }
+	body := struct {
+		ConsumerKey string `json:"consumer_key"`
+		Code        string `json:"code"`
+	}{
+		client.ConsumerKey,
+		code,
+	}
 
-  res, err := resty.
-    R().
-    SetHeader("X-Accept", "application/json").
-    SetBody(&body).
-    SetResult(&accessTokenResponse{}).
-    Post(client.resolveURL("/oauth/authorize"))
+	res, err := resty.
+		R().
+		SetHeader("X-Accept", "application/json").
+		SetBody(&body).
+		SetResult(&accessTokenResponse{}).
+		Post(client.resolveURL("/oauth/authorize"))
 
 	if err != nil {
 		return nil, err
@@ -76,20 +77,20 @@ func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, e
 }
 
 func (client *PocketClient) getRequestToken(redirectURI string) (*requestTokenResponse, error) {
-  body := struct {
-    ConsumerKey string `json:"consumer_key"`
+	body := struct {
+		ConsumerKey string `json:"consumer_key"`
 		RedirectURI string `json:"redirect_uri"`
-  } {
-    client.ConsumerKey,
-    redirectURI,
-  }
+	}{
+		client.ConsumerKey,
+		redirectURI,
+	}
 
-  res, err := resty.
-    R().
-    SetHeader("X-Accept", "application/json").
-    SetBody(&body).
-    SetResult(&requestTokenResponse{}).
-    Post(client.resolveURL("/oauth/request"))
+	res, err := resty.
+		R().
+		SetHeader("X-Accept", "application/json").
+		SetBody(&body).
+		SetResult(&requestTokenResponse{}).
+		Post(client.resolveURL("/oauth/request"))
 
 	if err != nil {
 		return nil, err

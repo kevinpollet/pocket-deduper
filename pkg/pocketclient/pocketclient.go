@@ -10,15 +10,15 @@ package pocketclient
 const DefaultBaseURL = "https://getpocket.com/v3"
 
 type PocketClient struct {
-  BaseURL     string
+	BaseURL     string
 	ConsumerKey string
 	username    string
 	accessToken string
 }
 
 func (client *PocketClient) resolveURL(path string) string {
-  if client.BaseURL != "" {
-    return client.BaseURL + path
-  }
-  return DefaultBaseURL + path
+	if client.BaseURL != "" {
+		return client.BaseURL + path
+	}
+	return DefaultBaseURL + path
 }
