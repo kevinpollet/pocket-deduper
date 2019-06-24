@@ -56,7 +56,7 @@ func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
     R().
     SetResult(&GetResponse{}).
 		SetBody(&body).
-		Post("https://getpocket.com/v3/get")
+		Post(client.resolveURL("/get"))
 
 	if err != nil {
 		return nil, err

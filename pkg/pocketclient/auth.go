@@ -61,7 +61,7 @@ func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, e
 		  "code":         code,
     }).
     SetResult(&accessTokenResponse{}).
-    Post("https://getpocket.com/v3/oauth/authorize")
+    Post(client.resolveURL("/oauth/authorize"))
 
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func (client *PocketClient) getRequestToken(redirectURI string) (*requestTokenRe
       "redirect_uri": redirectURI,
     }).
     SetResult(&requestTokenResponse{}).
-    Post("https://getpocket.com/v3/oauth/request")
+    Post(client.resolveURL("/oauth/request"))
 
 	if err != nil {
 		return nil, err

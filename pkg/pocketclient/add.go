@@ -37,7 +37,7 @@ func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
   res, err := resty.R().
     SetResult(&AddResponse{}).
     SetBody(&body).
-    Post("https://getpocket.com/v3/add")
+    Post(client.resolveURL("/add"))
 
 	if err != nil {
 		return nil, err
