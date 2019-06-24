@@ -37,14 +37,14 @@ type GetParams struct {
 	Offset      int    `json:"offset,omitempty"`
 }
 
-func (pocketClient PocketClient) Get(params *GetParams) (*ItemList, error) {
+func (client *PocketClient) Get(params *GetParams) (*ItemList, error) {
 	data := struct {
 		ConsumerKey string `json:"consumer_key"`
 		AccessToken string `json:"access_token"`
 		*GetParams
 	}{
-		ConsumerKey: pocketClient.ConsumerKey,
-		AccessToken: pocketClient.accessToken,
+		ConsumerKey: client.ConsumerKey,
+		AccessToken: client.accessToken,
 		GetParams:   params,
 	}
 

@@ -13,9 +13,9 @@ import (
 	"net/http"
 )
 
-func (pocketClient *PocketClient) Authorize() error {
+func (client *PocketClient) Authorize() error {
 	redirectURI := "http://localhost:8000"
-	code, err := pocketClient.getRequestToken(redirectURI)
+	code, err := client.getRequestToken(redirectURI)
 	if err != nil {
 		return err
 	}
@@ -23,9 +23,9 @@ func (pocketClient *PocketClient) Authorize() error {
 	router := http.NewServeMux()
 	server := http.Server{Addr: redirectURI[7:], Handler: router}
 	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
-		username, accessToken, _ := pocketClient.getAccessToken(code)
-		pocketClient.username = username
-		pocketClient.accessToken = accessToken
+		username, accessToken, _ := client.getAccessToken(code)
+		client.username = username
+		client.accessToken = accessToken
 
 		writer.WriteHeader(200)
 		writer.Write([]byte("Close the tab"))
@@ -42,14 +42,14 @@ func (pocketClient *PocketClient) Authorize() error {
 	return nil
 }
 
-func (pocketClient PocketClient) getAccessToken(code string) (string, string, error) {
+func (client *PocketClient) getAccessToken(code string) (string, string, error) {
 	body := struct {
 		Username    string `json:"username"`
 		AccessToken string `json:"access_token"`
 	}{}
 
 	err := postJSON("https://getpocket.com/v3/oauth/authorize", map[string]string{
-		"consumer_key": pocketClient.ConsumerKey,
+		"consumer_key": client.ConsumerKey,
 		"code":         code,
 	}, &body)
 	if err != nil {
@@ -59,14 +59,14 @@ func (pocketClient PocketClient) getAccessToken(code string) (string, string, er
 	return body.Username, body.AccessToken, nil
 }
 
-func (pocketClient PocketClient) getRequestToken(redirectURI string) (string, error) {
+func (client *PocketClient) getRequestToken(redirectURI string) (string, error) {
 	body := struct {
 		Code string `json:"code"`
 	}{}
 
 	err := postJSON("https://getpocket.com/v3/oauth/request",
 		map[string]string{
-			"consumer_key": pocketClient.ConsumerKey,
+			"consumer_key": client.ConsumerKey,
 			"redirect_uri": redirectURI,
 		}, &body)
 
