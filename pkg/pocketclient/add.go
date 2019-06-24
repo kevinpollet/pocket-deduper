@@ -29,9 +29,9 @@ func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
 		AccessToken string `json:"access_token"`
 		*AddParams
 	}{
-		ConsumerKey: client.ConsumerKey,
-		AccessToken: client.accessToken,
-		AddParams:   params,
+    client.ConsumerKey,
+		client.accessToken,
+		params,
   }
 
   res, err := resty.R().

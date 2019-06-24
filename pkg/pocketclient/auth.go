@@ -53,13 +53,18 @@ func (client *PocketClient) Authorize() error {
 }
 
 func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, error) {
+  body := struct {
+    ConsumerKey string `json:"consumer_key"`
+		Code string `json:"code"`
+  } {
+    client.ConsumerKey,
+    code,
+  }
+
   res, err := resty.
     R().
     SetHeader("X-Accept", "application/json").
-    SetBody(&map[string]string {
-      "consumer_key": client.ConsumerKey,
-		  "code":         code,
-    }).
+    SetBody(&body).
     SetResult(&accessTokenResponse{}).
     Post(client.resolveURL("/oauth/authorize"))
 
@@ -71,13 +76,18 @@ func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, e
 }
 
 func (client *PocketClient) getRequestToken(redirectURI string) (*requestTokenResponse, error) {
+  body := struct {
+    ConsumerKey string `json:"consumer_key"`
+		RedirectURI string `json:"redirect_uri"`
+  } {
+    client.ConsumerKey,
+    redirectURI,
+  }
+
   res, err := resty.
     R().
     SetHeader("X-Accept", "application/json").
-    SetBody(&map[string]string {
-      "consumer_key": client.ConsumerKey,
-      "redirect_uri": redirectURI,
-    }).
+    SetBody(&body).
     SetResult(&requestTokenResponse{}).
     Post(client.resolveURL("/oauth/request"))
 

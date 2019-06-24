@@ -47,10 +47,10 @@ func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
 		AccessToken string `json:"access_token"`
 		*GetParams
 	}{
-		ConsumerKey: client.ConsumerKey,
-		AccessToken: client.accessToken,
-		GetParams:   params,
-	}
+    client.ConsumerKey,
+    client.accessToken,
+    params,
+  }
 
 	res, err := resty.
     R().
