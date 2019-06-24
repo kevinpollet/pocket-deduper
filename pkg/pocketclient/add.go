@@ -19,8 +19,8 @@ type AddParams struct {
 }
 
 type AddResponse struct {
-	Status int         `json:"status"`
-	Item   interface{} `json:"item"`
+	Status int  `json:"status"`
+	Item   Item `json:"item"`
 }
 
 func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
