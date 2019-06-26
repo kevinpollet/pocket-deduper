@@ -9,6 +9,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.go]
+indent_size = 8
 indent_style = tab
 
 [*.md]
