@@ -5,7 +5,7 @@
  * found in the LICENSE.md file.
  */
 
-package pocketclient
+package pocket
 
 type Item struct {
 	ItemID        string                 `json:"item_id"`

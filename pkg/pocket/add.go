@@ -5,7 +5,7 @@
  * found in the LICENSE.md file.
  */
 
-package pocketclient
+package pocket
 
 import (
 	"gopkg.in/resty.v1"
