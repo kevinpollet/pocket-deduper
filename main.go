@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	pocketClient := pocket.PocketClient{
+	pocketClient := pocket.Client{
 		ConsumerKey: os.Getenv("CONSUMER_KEY"),
 	}
 

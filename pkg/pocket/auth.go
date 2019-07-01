@@ -24,7 +24,7 @@ type accessTokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
 
-func (client *PocketClient) Authorize() error {
+func (client *Client) Authorize() error {
 	redirectURI := "http://localhost:8000"
 	code, err := client.getRequestToken(redirectURI)
 	if err != nil {
@@ -53,7 +53,7 @@ func (client *PocketClient) Authorize() error {
 	return nil
 }
 
-func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, error) {
+func (client *Client) getAccessToken(code string) (*accessTokenResponse, error) {
 	body := struct {
 		ConsumerKey string `json:"consumer_key"`
 		Code        string `json:"code"`
@@ -76,7 +76,7 @@ func (client *PocketClient) getAccessToken(code string) (*accessTokenResponse, e
 	return res.Result().(*accessTokenResponse), nil
 }
 
-func (client *PocketClient) getRequestToken(redirectURI string) (*requestTokenResponse, error) {
+func (client *Client) getRequestToken(redirectURI string) (*requestTokenResponse, error) {
 	body := struct {
 		ConsumerKey string `json:"consumer_key"`
 		RedirectURI string `json:"redirect_uri"`

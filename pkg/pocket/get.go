@@ -30,7 +30,7 @@ type GetResponse struct {
 	List   map[string]Item `json:"list"`
 }
 
-func (client *PocketClient) Get(params *GetParams) (*GetResponse, error) {
+func (client *Client) Get(params *GetParams) (*GetResponse, error) {
 	body := struct {
 		ConsumerKey string `json:"consumer_key"`
 		AccessToken string `json:"access_token"`

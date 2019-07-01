@@ -23,7 +23,7 @@ type AddResponse struct {
 	Item   Item `json:"item"`
 }
 
-func (client *PocketClient) Add(params *AddParams) (*AddResponse, error) {
+func (client *Client) Add(params *AddParams) (*AddResponse, error) {
 	body := struct {
 		ConsumerKey string `json:"consumer_key"`
 		AccessToken string `json:"access_token"`
