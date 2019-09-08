@@ -1,6 +1,6 @@
 # pocket-remove-duplicates
 
-[![Build Status](https://github.com/kevinpollet/pocket-remove-duplicates/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/kevinpollet/pocket-remove-duplicates/actions/new)
+[![Build Status](https://github.com/kevinpollet/pocket-remove-duplicates/workflows/Build/badge.svg)](https://github.com/kevinpollet/pocket-remove-duplicates/actions/new)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
 ## Contributing
