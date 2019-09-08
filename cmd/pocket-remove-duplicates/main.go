@@ -12,7 +12,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-remove-duplicates/pkg/pocket"
+	"github.com/kevinpollet/pocket-remove-duplicates/internal/pocket"
 )
 
 func main() {
