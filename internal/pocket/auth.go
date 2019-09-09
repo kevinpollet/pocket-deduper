@@ -66,7 +66,7 @@ func (client *Client) getAccessToken(code string) (*accessTokenResponse, error) 
 		SetHeader("X-Accept", "application/json").
 		SetBody(&body).
 		SetResult(&accessTokenResponse{}).
-		Post(client.resolveURL("/oauth/authorize"))
+		Post("https://getpocket.com/v3/oauth/authorize")
 
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ func (client *Client) getRequestToken(redirectURI string) (*requestTokenResponse
 		SetHeader("X-Accept", "application/json").
 		SetBody(&body).
 		SetResult(&requestTokenResponse{}).
-		Post(client.resolveURL("/oauth/request"))
+		Post("https://getpocket.com/v3/oauth/request")
 
 	if err != nil {
 		return nil, err

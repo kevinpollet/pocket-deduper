@@ -45,7 +45,7 @@ func (client *Client) Get(params *GetParams) (*GetResponse, error) {
 		R().
 		SetResult(&GetResponse{}).
 		SetBody(&body).
-		Post(client.resolveURL("/get"))
+		Post("https://getpocket.com/v3/get")
 
 	if err != nil {
 		return nil, err
