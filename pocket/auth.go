@@ -44,7 +44,7 @@ func (client *Client) Authorize() error {
 		}()
 	})
 
-	fmt.Printf("Open: https://getpocket.com/auth/authorize?request_token=%s&redirect_uri=%s\n", code.Code, redirectURI)
+	fmt.Printf("\nOpen: https://getpocket.com/auth/authorize?request_token=%s&redirect_uri=%s\n", code.Code, redirectURI)
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		return err

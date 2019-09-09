@@ -42,6 +42,7 @@ var (
 					itemSet[item.ResolvedURL] = &item
 				} else {
 					deleteItemActions = append(deleteItemActions, *pocket.NewDeleteAction(item.ItemID))
+					fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
 				}
 			}
 
