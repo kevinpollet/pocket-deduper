@@ -54,6 +54,5 @@ func (client *Client) Modify(actions []ModifyAction) (*ModifyResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return res.Result().(*ModifyResponse), nil
 }

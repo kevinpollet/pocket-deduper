@@ -33,18 +33,18 @@ var (
 				log.Fatal(err)
 			}
 
-			temp := make(map[string]*pocket.Item, 0)
-			deleteActions := make([]pocket.ModifyAction, 0)
+			itemSet := make(map[string]*pocket.Item, 0)
+			deleteItemActions := make([]pocket.ModifyAction, 0)
 
 			for _, item := range res.List {
-				if existingItem := temp[item.ResolvedURL]; existingItem == nil {
-					temp[item.ResolvedURL] = &item
+				if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
+					itemSet[item.ResolvedURL] = &item
 				} else {
-					deleteActions = append(deleteActions, *pocket.NewDeleteAction(item.ItemID))
+					deleteItemActions = append(deleteItemActions, *pocket.NewDeleteAction(item.ItemID))
 				}
 			}
 
-			_, err = pocketClient.Modify(deleteActions)
+			_, err = pocketClient.Modify(deleteItemActions)
 			if err != nil {
 				log.Fatal(err)
 			}

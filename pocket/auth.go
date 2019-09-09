@@ -71,7 +71,6 @@ func (client *Client) getAccessToken(code string) (*accessTokenResponse, error) 
 	if err != nil {
 		return nil, err
 	}
-
 	return res.Result().(*accessTokenResponse), nil
 }
 

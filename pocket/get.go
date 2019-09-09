@@ -48,6 +48,5 @@ func (client *Client) Get(params *GetParams) (*GetResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return res.Result().(*GetResponse), nil
 }
