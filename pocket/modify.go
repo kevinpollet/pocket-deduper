@@ -7,13 +7,11 @@
 
 package pocket
 
-import "gopkg.in/resty.v1"
+import (
+	"time"
 
-type DeleteAction struct {
-	Action string `json:"action"`
-	ItemID string `json:"item_id"`
-	time   string `json:"time,omitempty"`
-}
+	"gopkg.in/resty.v1"
+)
 
 type ModifyResponse struct {
 	Status        int           `json:"status"`
@@ -21,11 +19,25 @@ type ModifyResponse struct {
 	ActionErrors  []interface{} `json:"action_errors"`
 }
 
-func (client *Client) Modify(actions []interface{}) (*ModifyResponse, error) {
+type ModifyAction struct {
+	Action string `json:"action"`
+	ItemID string `json:"item_id,omitempty"`
+	Time   string `json:"time,omitempty"`
+}
+
+func NewDeleteAction(itemID string) *ModifyAction {
+	return &ModifyAction{
+		Action: "delete",
+		ItemID: itemID,
+		Time:   string(time.Now().Unix()),
+	}
+}
+
+func (client *Client) Modify(actions []ModifyAction) (*ModifyResponse, error) {
 	body := struct {
-		ConsumerKey string        `json:"consumer_key"`
-		AccessToken string        `json:"access_token"`
-		Actions     []interface{} `json:"actions"`
+		ConsumerKey string         `json:"consumer_key"`
+		AccessToken string         `json:"access_token"`
+		Actions     []ModifyAction `json:"actions"`
 	}{
 		client.ConsumerKey,
 		client.accessToken,

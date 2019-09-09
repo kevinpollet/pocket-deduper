@@ -34,16 +34,13 @@ var (
 			}
 
 			temp := make(map[string]*pocket.Item, 0)
-			deleteActions := make([]interface{}, 0)
+			deleteActions := make([]pocket.ModifyAction, 0)
 
 			for _, item := range res.List {
 				if existingItem := temp[item.ResolvedURL]; existingItem == nil {
 					temp[item.ResolvedURL] = &item
 				} else {
-					deleteActions = append(deleteActions, pocket.DeleteAction{
-						Action: "delete",
-						ItemID: item.ItemID,
-					})
+					deleteActions = append(deleteActions, *pocket.NewDeleteAction(item.ItemID))
 				}
 			}
 
