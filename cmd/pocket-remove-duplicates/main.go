@@ -25,7 +25,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	res, err := pocketClient.Get(&pocket.GetParams{ContentType: "video"})
+	res, err := pocketClient.Get(&pocket.GetParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
