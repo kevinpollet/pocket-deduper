@@ -8,6 +8,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/kevinpollet/pocket-list-dedupe/pocket"
@@ -44,9 +45,14 @@ var (
 				}
 			}
 
-			_, err = pocketClient.Modify(deleteItemActions)
-			if err != nil {
-				log.Fatal(err)
+			if len(deleteItemActions) == 0 {
+				fmt.Println("\n✔ No duplicate items found")
+
+			} else {
+				_, err = pocketClient.Modify(deleteItemActions)
+				if err != nil {
+					log.Fatal(err)
+				}
 			}
 		},
 	}
