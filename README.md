@@ -9,6 +9,18 @@
 $ go get github.com/kevinpollet/pocket-list-dedupe
 ```
 
+## Usage
+
+```shell
+Remove duplicate items in your Pocket reading list
+
+Usage:
+  pocket-list-dedupe [flags]
+
+Flags:
+  -h, --help   help for pocket-list-dedupe
+```
+
 ## Contributing
 
 Contributions are welcome!
