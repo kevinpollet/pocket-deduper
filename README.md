@@ -3,13 +3,13 @@
 [![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/Build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
-Remove duplicate items in your Pocket reading list.
+Remove duplicate items in your Pocket list.
 
 ## Table of Contents <!-- omit in toc -->
 
 - [Install](#install)
 - [Usage](#usage)
-  - [Get a Pocket Consumer Key](#get-a-pocket-consumer-key)
+  - [Get a Consumer Key](#get-a-consumer-key)
   - [Commands](#commands)
 - [Contributing](#contributing)
 - [License](#license)
@@ -22,7 +22,7 @@ $ go get github.com/kevinpollet/pocket-list-dedupe
 
 ## Usage
 
-### Get a Pocket Consumer Key
+### Get a Consumer Key
 
 1. Go to https://getpocket.com/developer/apps/new
 2. Enter App `name` and `description`
@@ -35,7 +35,7 @@ $ go get github.com/kevinpollet/pocket-list-dedupe
 ### Commands
 
 ```shell
-Remove duplicate items in your Pocket reading list
+Remove duplicate items in your Pocket list
 
 Usage:
   pocket-list-dedupe [flags]

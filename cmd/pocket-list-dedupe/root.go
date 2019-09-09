@@ -18,7 +18,7 @@ var (
 	consumerKey string
 	rootCmd     = &cobra.Command{
 		Use:   "pocket-list-dedupe",
-		Short: "Remove duplicate items in your Pocket reading list",
+		Short: "Remove duplicate items in your Pocket list",
 		Run: func(cmd *cobra.Command, args []string) {
 			pocketClient := pocket.Client{
 				ConsumerKey: consumerKey,
