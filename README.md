@@ -18,7 +18,8 @@ Usage:
   pocket-list-dedupe [flags]
 
 Flags:
-  -h, --help   help for pocket-list-dedupe
+  -c, --consumerKey string   Pocket application's Consumer Key
+  -h, --help                 help for pocket-list-dedupe
 ```
 
 ## Contributing
