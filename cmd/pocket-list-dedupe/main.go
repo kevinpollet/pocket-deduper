@@ -7,37 +7,6 @@
 
 package main
 
-import (
-	"fmt"
-	"log"
-	"os"
-
-	"github.com/kevinpollet/pocket-list-dedupe/internal/pocket"
-)
-
 func main() {
-	pocketClient := pocket.Client{
-		ConsumerKey: os.Getenv("CONSUMER_KEY"),
-	}
-
-	err := pocketClient.Authorize()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, err := pocketClient.Get(&pocket.GetParams{})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	d := make(map[string]*pocket.Item, 0)
-
-	for _, item := range res.List {
-		existing := d[item.ResolvedURL]
-		if existing == nil {
-			d[item.ResolvedURL] = &item
-		} else {
-			fmt.Printf("--> Duplicate: %s/%s\n", item.ResolvedTitle, item.ResolvedURL)
-		}
-	}
+	rootCmd.Execute()
 }

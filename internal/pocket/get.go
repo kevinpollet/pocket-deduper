@@ -7,9 +7,7 @@
 
 package pocket
 
-import (
-	"gopkg.in/resty.v1"
-)
+import "gopkg.in/resty.v1"
 
 type GetParams struct {
 	State       string `json:"state,omitempty"`
