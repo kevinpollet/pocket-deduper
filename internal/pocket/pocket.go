@@ -12,7 +12,6 @@ const DefaultBaseURL = "https://getpocket.com/v3"
 type Client struct {
 	BaseURL     string
 	ConsumerKey string
-	username    string
 	accessToken string
 }
 

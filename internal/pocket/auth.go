@@ -35,7 +35,6 @@ func (client *Client) Authorize() error {
 	server := http.Server{Addr: redirectURI[7:], Handler: router}
 	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
 		res, _ := client.getAccessToken(code.Code)
-		client.username = res.Username
 		client.accessToken = res.AccessToken
 
 		writer.WriteHeader(200)
