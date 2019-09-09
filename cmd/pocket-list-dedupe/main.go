@@ -12,7 +12,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-remove-duplicates/internal/pocket"
+	"github.com/kevinpollet/pocket-list-dedupe/internal/pocket"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 		if existing == nil {
 			d[item.ResolvedURL] = &item
 		} else {
-			fmt.Printf("--> Duplicate: %s\n", item.ResolvedTitle)
+			fmt.Printf("--> Duplicate: %s/%s\n", item.ResolvedTitle, item.ResolvedURL)
 		}
 	}
 }

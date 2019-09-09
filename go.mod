@@ -1,4 +1,4 @@
-module github.com/kevinpollet/pocket-remove-duplicates
+module github.com/kevinpollet/pocket-list-dedupe
 
 go 1.13
 
