@@ -12,7 +12,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-list-dedupe/internal/pocket"
+	"github.com/kevinpollet/pocket-list-dedupe/pocket"
 	"github.com/spf13/cobra"
 )
 
