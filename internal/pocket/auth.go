@@ -64,8 +64,8 @@ func (client *Client) getAccessToken(code string) (*accessTokenResponse, error) 
 	res, err := resty.
 		R().
 		SetHeader("X-Accept", "application/json").
-		SetBody(&body).
-		SetResult(&accessTokenResponse{}).
+		SetBody(body).
+		SetResult(accessTokenResponse{}).
 		Post("https://getpocket.com/v3/oauth/authorize")
 
 	if err != nil {
@@ -87,8 +87,8 @@ func (client *Client) getRequestToken(redirectURI string) (*requestTokenResponse
 	res, err := resty.
 		R().
 		SetHeader("X-Accept", "application/json").
-		SetBody(&body).
-		SetResult(&requestTokenResponse{}).
+		SetBody(body).
+		SetResult(requestTokenResponse{}).
 		Post("https://getpocket.com/v3/oauth/request")
 
 	if err != nil {

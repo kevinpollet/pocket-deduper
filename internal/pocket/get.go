@@ -43,8 +43,8 @@ func (client *Client) Get(params *GetParams) (*GetResponse, error) {
 
 	res, err := resty.
 		R().
-		SetResult(&GetResponse{}).
-		SetBody(&body).
+		SetResult(GetResponse{}).
+		SetBody(body).
 		Post("https://getpocket.com/v3/get")
 
 	if err != nil {
