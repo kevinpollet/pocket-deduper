@@ -3,6 +3,8 @@
 [![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/Build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
+Remove duplicate items in your Pocket reading list.
+
 ## Install
 
 ```shell
