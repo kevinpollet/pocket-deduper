@@ -8,7 +8,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/kevinpollet/pocket-list-dedupe/pocket"
@@ -34,16 +33,23 @@ var (
 				log.Fatal(err)
 			}
 
-			temp := make(map[string]*pocket.Item, 10)
-			duplicateItems := make([]*pocket.Item, 10)
+			temp := make(map[string]*pocket.Item, 0)
+			deleteActions := make([]interface{}, 0)
 
 			for _, item := range res.List {
 				if existingItem := temp[item.ResolvedURL]; existingItem == nil {
 					temp[item.ResolvedURL] = &item
 				} else {
-					duplicateItems = append(duplicateItems, &item)
-					fmt.Println(item)
+					deleteActions = append(deleteActions, pocket.DeleteAction{
+						Action: "delete",
+						ItemID: item.ItemID,
+					})
 				}
+			}
+
+			_, err = pocketClient.Modify(deleteActions)
+			if err != nil {
+				log.Fatal(err)
 			}
 		},
 	}
