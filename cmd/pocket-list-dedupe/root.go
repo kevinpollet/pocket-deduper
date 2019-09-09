@@ -10,7 +10,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/kevinpollet/pocket-list-dedupe/pocket"
 	"github.com/spf13/cobra"
@@ -22,9 +21,11 @@ var (
 		Use:   "pocket-list-dedupe",
 		Short: "Remove duplicate items in your Pocket reading list",
 		Run: func(cmd *cobra.Command, args []string) {
-			pocketClient := pocket.Client{ConsumerKey: consumerKey}
-			err := pocketClient.Authorize()
-			if err != nil {
+			pocketClient := pocket.Client{
+				ConsumerKey: consumerKey,
+			}
+
+			if err := pocketClient.Authorize(); err != nil {
 				log.Fatal(err)
 			}
 
@@ -33,14 +34,15 @@ var (
 				log.Fatal(err)
 			}
 
-			d := make(map[string]*pocket.Item, 0)
+			temp := make(map[string]*pocket.Item, 10)
+			duplicateItems := make([]*pocket.Item, 10)
 
 			for _, item := range res.List {
-				existing := d[item.ResolvedURL]
-				if existing == nil {
-					d[item.ResolvedURL] = &item
+				if existingItem := temp[item.ResolvedURL]; existingItem == nil {
+					temp[item.ResolvedURL] = &item
 				} else {
-					fmt.Printf("--> Duplicate: %s/%s\n", item.ResolvedTitle, item.ResolvedURL)
+					duplicateItems = append(duplicateItems, &item)
+					fmt.Println(item)
 				}
 			}
 		},
@@ -54,7 +56,6 @@ func init() {
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
