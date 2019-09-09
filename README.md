@@ -1,9 +1,18 @@
-# pocket-list-dedupe
+# pocket-list-dedupe <!-- omit in toc -->
 
 [![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/Build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
 Remove duplicate items in your Pocket reading list.
+
+## Table of Contents <!-- omit in toc -->
+
+- [Install](#install)
+- [Usage](#usage)
+  - [Get a Pocket Consumer Key](#get-a-pocket-consumer-key)
+  - [Commands](#commands)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Install
 
@@ -12,6 +21,18 @@ $ go get github.com/kevinpollet/pocket-list-dedupe
 ```
 
 ## Usage
+
+### Get a Pocket Consumer Key
+
+1. Go to https://getpocket.com/developer/apps/new
+2. Enter App `name` and `description`
+3. Select `Retrieve` and `Modify` permissions
+4. Select `Desktop` platform
+5. Accept the Terms of Service
+6. Create Application
+7. Copy and keep your `Consumer Key` secret
+
+### Commands
 
 ```shell
 Remove duplicate items in your Pocket reading list
