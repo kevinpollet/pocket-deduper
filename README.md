@@ -1,6 +1,7 @@
 # pocket-list-dedupe <!-- omit in toc -->
 
 [![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-list-dedupe)](https://goreportcard.com/report/github.com/kevinpollet/pocket-list-dedupe)
 [![License](https://img.shields.io/github/license/kevinpollet/pocket-list-dedupe)](./LICENSE.md)
 
 Remove duplicate items in your Pocket list.
