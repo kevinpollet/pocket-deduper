@@ -1,8 +1,8 @@
-# pocket-list-dedupe <!-- omit in toc -->
+# pocket-deduper <!-- omit in toc -->
 
-[![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-list-dedupe)](https://goreportcard.com/report/github.com/kevinpollet/pocket-list-dedupe)
-[![License](https://img.shields.io/github/license/kevinpollet/pocket-list-dedupe)](./LICENSE.md)
+[![Build Status](https://github.com/kevinpollet/pocket-deduper/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-deduper/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-deduper)](https://goreportcard.com/report/github.com/kevinpollet/pocket-deduper)
+[![License](https://img.shields.io/github/license/kevinpollet/pocket-deduper)](./LICENSE.md)
 
 Remove duplicate items in your Pocket list.
 
@@ -18,7 +18,7 @@ Remove duplicate items in your Pocket list.
 ## Install
 
 ```shell
-$ go get github.com/kevinpollet/pocket-list-dedupe
+$ go get github.com/kevinpollet/pocket-deduper
 ```
 
 ## Usage
@@ -39,11 +39,11 @@ $ go get github.com/kevinpollet/pocket-list-dedupe
 Remove duplicate items in your Pocket list
 
 Usage:
-  pocket-list-dedupe [flags]
+  pocket-deduper [flags]
 
 Flags:
   -c, --consumerKey string   Pocket application's Consumer Key
-  -h, --help                 help for pocket-list-dedupe
+  -h, --help                 help for pocket-deduper
 ```
 
 ## Contributing
@@ -53,7 +53,7 @@ Contributions are welcome!
 Want to file a bug, request a feature or contribute some code?
 
 1. Check out the [Code of Conduct](./CODE_OF_CONDUCT.md).
-2. Check for an existing [issue](https://github.com/kevinpollet/pocket-list-dedupe/issues) corresponding to your bug or feature request.
+2. Check for an existing [issue](https://github.com/kevinpollet/pocket-deduper/issues) corresponding to your bug or feature request.
 3. Open an issue to describe your bug or feature request.
 
 ## License

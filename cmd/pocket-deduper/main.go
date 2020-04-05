@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/kevinpollet/pocket-list-dedupe/pocket"
+	"github.com/kevinpollet/pocket-deduper/pocket"
 	"github.com/spf13/cobra"
 )
 
 var (
 	consumerKey string
 	rootCmd     = &cobra.Command{
-		Use:   "pocket-list-dedupe",
+		Use:   "pocket-deduper",
 		Short: "Remove duplicate items in your Pocket list",
 		Run: func(cmd *cobra.Command, args []string) {
 			pocketClient := pocket.Client{
