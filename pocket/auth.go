@@ -27,20 +27,23 @@ type accessTokenResponse struct {
 func (client *Client) Authorize() error {
 	redirectURI := "http://localhost:8000"
 	code, err := client.getRequestToken(redirectURI)
+
 	if err != nil {
 		return err
 	}
 
 	router := http.NewServeMux()
 	server := http.Server{Addr: redirectURI[7:], Handler: router}
+
 	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
 		res, _ := client.getAccessToken(code.Code)
 		client.accessToken = res.AccessToken
 
-		writer.WriteHeader(200)
-		writer.Write([]byte("Close the tab"))
+		writer.WriteHeader(http.StatusOK)
+		fmt.Fprintln(writer, "Close the tab")
+
 		go func() {
-			server.Shutdown(context.Background())
+			server.Shutdown(context.Background()) // nolint
 		}()
 	})
 
@@ -49,6 +52,7 @@ func (client *Client) Authorize() error {
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		return err
 	}
+
 	return nil
 }
 
@@ -71,6 +75,7 @@ func (client *Client) getAccessToken(code string) (*accessTokenResponse, error) 
 	if err != nil {
 		return nil, err
 	}
+
 	return res.Result().(*accessTokenResponse), nil
 }
 
@@ -93,5 +98,6 @@ func (client *Client) getRequestToken(redirectURI string) (*requestTokenResponse
 	if err != nil {
 		return nil, err
 	}
+
 	return res.Result().(*requestTokenResponse), nil
 }

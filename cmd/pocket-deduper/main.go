@@ -21,7 +21,7 @@ var consumerKey = flag.String("consumerKey", "", "")
 func main() {
 	flag.Usage = func() {
 		fmt.Println(usage)
-		os.Exit(2)
+		os.Exit(2) // nolint
 	}
 	flag.Parse()
 
@@ -35,10 +35,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	itemSet := make(map[string]*pocket.Item, 0)
+	itemSet := make(map[string]*pocket.Item)
 	deleteItemActions := make([]pocket.ModifyAction, 0)
 
 	for _, item := range res.List {
+		item := item
+
 		if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
 			itemSet[item.ResolvedURL] = &item
 		} else {
@@ -49,7 +51,6 @@ func main() {
 
 	if len(deleteItemActions) == 0 {
 		fmt.Println("\n✔ No duplicate items found")
-
 	} else {
 		_, err = pocketClient.Modify(deleteItemActions)
 		if err != nil {
