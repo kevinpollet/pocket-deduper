@@ -1,69 +1,59 @@
-/**
- * Copyright © 2019 kevinpollet <pollet.kevin@gmail.com>`
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE.md file.
- */
-
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/kevinpollet/pocket-deduper/pocket"
-	"github.com/spf13/cobra"
 )
 
-var (
-	consumerKey string
-	rootCmd     = &cobra.Command{
-		Use:   "pocket-deduper",
-		Short: "Remove duplicate items in your Pocket list",
-		Run: func(cmd *cobra.Command, args []string) {
-			pocketClient := pocket.Client{
-				ConsumerKey: consumerKey,
-			}
+const usage = `pocket-deduper [options]
 
-			if err := pocketClient.Authorize(); err != nil {
-				log.Fatal(err)
-			}
+Options:
+-consumerKey  Pocket API consumer key.
+-help         Prints this text.
+`
 
-			res, err := pocketClient.Get(&pocket.GetParams{})
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			itemSet := make(map[string]*pocket.Item, 0)
-			deleteItemActions := make([]pocket.ModifyAction, 0)
-
-			for _, item := range res.List {
-				if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
-					itemSet[item.ResolvedURL] = &item
-				} else {
-					deleteItemActions = append(deleteItemActions, *pocket.NewDeleteAction(item.ItemID))
-					fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
-				}
-			}
-
-			if len(deleteItemActions) == 0 {
-				fmt.Println("\n✔ No duplicate items found")
-
-			} else {
-				_, err = pocketClient.Modify(deleteItemActions)
-				if err != nil {
-					log.Fatal(err)
-				}
-			}
-		},
-	}
-)
+var consumerKey = flag.String("consumerKey", "", "")
 
 func main() {
-	rootCmd.Flags().StringVarP(&consumerKey, "consumerKey", "c", "", "Pocket application's Consumer Key")
-	rootCmd.MarkFlagRequired("consumerKey")
+	flag.Usage = func() {
+		fmt.Println(usage)
+		os.Exit(2)
+	}
+	flag.Parse()
 
-	if err := rootCmd.Execute(); err != nil {
+	pocketClient := pocket.Client{ConsumerKey: *consumerKey}
+	if err := pocketClient.Authorize(); err != nil {
 		log.Fatal(err)
+	}
+
+	res, err := pocketClient.Get(&pocket.GetParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	itemSet := make(map[string]*pocket.Item, 0)
+	deleteItemActions := make([]pocket.ModifyAction, 0)
+
+	for _, item := range res.List {
+		if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
+			itemSet[item.ResolvedURL] = &item
+		} else {
+			deleteItemActions = append(deleteItemActions, *pocket.NewDeleteAction(item.ItemID))
+			fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
+		}
+	}
+
+	if len(deleteItemActions) == 0 {
+		fmt.Println("\n✔ No duplicate items found")
+
+	} else {
+		_, err = pocketClient.Modify(deleteItemActions)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
