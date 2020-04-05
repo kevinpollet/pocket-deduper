@@ -4,26 +4,24 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-deduper)](https://goreportcard.com/report/github.com/kevinpollet/pocket-deduper)
 [![License](https://img.shields.io/github/license/kevinpollet/pocket-deduper)](./LICENSE.md)
 
-Remove duplicate items in your Pocket list.
+Remove duplicates from your [Pocket](https://app.getpocket.com/) list.
 
 ## Table of Contents <!-- omit in toc -->
 
 - [Install](#install)
 - [Usage](#usage)
-  - [Get a Consumer Key](#get-a-consumer-key)
-  - [Commands](#commands)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Install
 
 ```shell
-$ go get github.com/kevinpollet/pocket-deduper
+go get github.com/kevinpollet/pocket-deduper
 ```
 
 ## Usage
 
-### Get a Consumer Key
+### Get a Consumer Key <!-- omit in toc -->
 
 1. Go to https://getpocket.com/developer/apps/new
 2. Enter App `name` and `description`
@@ -33,7 +31,7 @@ $ go get github.com/kevinpollet/pocket-deduper
 6. Create Application
 7. Copy and keep your `Consumer Key` secret
 
-### Commands
+### Commands <!-- omit in toc -->
 
 ```shell
 Remove duplicate items in your Pocket list
