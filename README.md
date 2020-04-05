@@ -1,7 +1,7 @@
 # pocket-list-dedupe <!-- omit in toc -->
 
 [![Build Status](https://github.com/kevinpollet/pocket-list-dedupe/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-list-dedupe/actions)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
+[![License](https://img.shields.io/github/license/kevinpollet/pocket-list-dedupe)](./LICENSE.md)
 
 Remove duplicate items in your Pocket list.
 
