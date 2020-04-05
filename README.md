@@ -21,6 +21,14 @@ go get github.com/kevinpollet/pocket-deduper
 
 ## Usage
 
+```shell
+pocket-deduper [options]
+
+Options:
+-consumerKey  Pocket API consumer key.
+-help         Prints this text.
+```
+
 ### Get a Consumer Key <!-- omit in toc -->
 
 1. Go to https://getpocket.com/developer/apps/new
@@ -30,19 +38,6 @@ go get github.com/kevinpollet/pocket-deduper
 5. Accept the Terms of Service
 6. Create Application
 7. Copy and keep your `Consumer Key` secret
-
-### Commands <!-- omit in toc -->
-
-```shell
-Remove duplicate items in your Pocket list
-
-Usage:
-  pocket-deduper [flags]
-
-Flags:
-  -c, --consumerKey string   Pocket application's Consumer Key
-  -h, --help                 help for pocket-deduper
-```
 
 ## Contributing
 
