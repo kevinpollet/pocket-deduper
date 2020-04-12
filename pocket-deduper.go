@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-deduper/pkg/pocket"
+	"github.com/kevinpollet/pocket-deduper/pkg/client"
 )
 
 const usage = `pocket-deduper [options]
@@ -25,18 +25,19 @@ func main() {
 	}
 	flag.Parse()
 
-	pocketClient := pocket.Client{ConsumerKey: *consumerKey}
+	pocketClient := client.NewPocketClient(*consumerKey)
+
 	if err := pocketClient.Authorize(); err != nil {
 		log.Fatal(err)
 	}
 
-	res, err := pocketClient.Get(&pocket.GetParams{})
+	res, err := pocketClient.Get(&client.GetParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	itemSet := make(map[string]*pocket.Item)
-	deleteItemActions := make([]pocket.ModifyAction, 0)
+	itemSet := make(map[string]*client.Item)
+	deleteItemActions := make([]client.ModifyAction, 0)
 
 	for _, item := range res.List {
 		item := item
@@ -44,7 +45,7 @@ func main() {
 		if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
 			itemSet[item.ResolvedURL] = &item
 		} else {
-			deleteItemActions = append(deleteItemActions, *pocket.NewDeleteAction(item.ItemID))
+			deleteItemActions = append(deleteItemActions, *client.NewDeleteAction(item.ItemID))
 			fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
 		}
 	}

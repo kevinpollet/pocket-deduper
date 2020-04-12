@@ -5,9 +5,12 @@
  * found in the LICENSE.md file.
  */
 
-package pocket
+package client
 
-import "gopkg.in/resty.v1"
+import (
+	"bytes"
+	"encoding/json"
+)
 
 type GetParams struct {
 	State       string `json:"state,omitempty"`
@@ -28,26 +31,34 @@ type GetResponse struct {
 	List   map[string]Item `json:"list"`
 }
 
-func (client *Client) Get(params *GetParams) (*GetResponse, error) {
-	body := struct {
-		ConsumerKey string `json:"consumer_key"`
-		AccessToken string `json:"access_token"`
-		*GetParams
-	}{
-		client.ConsumerKey,
-		client.accessToken,
-		params,
-	}
+type getRequest struct {
+	ConsumerKey string `json:"consumer_key"`
+	AccessToken string `json:"access_token"`
+	*GetParams
+}
 
-	res, err := resty.
-		R().
-		SetResult(GetResponse{}).
-		SetBody(body).
-		Post("https://getpocket.com/v3/get")
+func (p *PocketClient) Get(params *GetParams) (*GetResponse, error) {
+	body := &getRequest{p.consumerKey, p.accessToken, params}
 
+	bodyBytes, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 
-	return res.Result().(*GetResponse), nil
+	req, err := newPocketRequest("/get", bytes.NewReader(bodyBytes))
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := p.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	getResponse := &GetResponse{}
+	if err = json.NewDecoder(res.Body).Decode(getResponse); err != nil {
+		return nil, err
+	}
+
+	return getResponse, nil
 }
