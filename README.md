@@ -10,6 +10,7 @@ Remove duplicates from your [Pocket](https://app.getpocket.com/) list.
 
 - [Install](#install)
 - [Usage](#usage)
+- [Authorization](#authorization)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -30,15 +31,20 @@ Options:
 -help         Prints this text.
 ```
 
-## Obtain Consumer Key
+## Authorization
 
-1. Go to https://getpocket.com/developer/apps/new
-2. Enter App `name` and `description`
-3. Select `Retrieve` and `Modify` permissions
-4. Select `Desktop` platform
-5. Accept the Terms of Service
-6. Create Application
-7. Copy and keep your `Consumer Key` secret
+The **pocket-deduper** CLI must be authorized to access your Pocket account through the [API](https://getpocket.com/developer/).
+The first step is to obtain a `Consumer key` used by the CLI to negotiate an access token:   
+
+1. Go to https://getpocket.com/developer/apps/new.
+2. Enter the App `name` and `description`.
+3. Select `Retrieve` and `Modify` permissions.
+4. Select `Desktop` platform.
+5. Accept the Terms of Service.
+6. Create Application.
+7. Copy and keep your `Consumer Key` secret.
+
+Then, you will have to pass this `Consumer Key` as a CLI flag as described in the [Usage](#usage) section.  
 
 ## Contributing
 
