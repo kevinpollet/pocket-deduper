@@ -26,6 +26,7 @@ pocket-deduper [options]
 
 Options:
 -consumerKey  Pocket API consumer key.
+-dryRun       Print duplicate items without removing them from Pocket.
 -help         Prints this text.
 ```
 

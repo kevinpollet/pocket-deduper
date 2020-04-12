@@ -14,10 +14,14 @@ const usage = `pocket-deduper [options]
 
 Options:
 -consumerKey  Pocket API consumer key.
+-dryRun       Print duplicate items without removing them from Pocket.
 -help         Prints this text.
 `
 
-var consumerKey = flag.String("consumerKey", "", "")
+var (
+	consumerKey = flag.String("consumerKey", "", "")
+	dryRun      = flag.Bool("dryRun", false, "")
+)
 
 func main() {
 	flag.Usage = func() {
@@ -40,19 +44,23 @@ func main() {
 	duplicateItems := deduper.GetDuplicateItems(res.List)
 
 	if len(duplicateItems) == 0 {
-		fmt.Println("\n✔ No duplicate items found")
+		fmt.Println("\n✔ No duplicate items")
 		return
 	}
 
 	deleteItemActions := make([]client.ModifyAction, 0)
 
+	fmt.Println("\nDuplicate items:")
+
 	for _, item := range duplicateItems {
 		deleteItemActions = append(deleteItemActions, *client.NewDeleteAction(item.ItemID))
-		fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
+		fmt.Printf("● %s\n", item.ResolvedTitle)
 	}
 
-	_, err = pocketClient.Modify(deleteItemActions)
-	if err != nil {
-		log.Fatal(err)
+	if !*dryRun {
+		_, err = pocketClient.Modify(deleteItemActions)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
