@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/kevinpollet/pocket-deduper/pkg/client"
+	"github.com/kevinpollet/pocket-deduper/pkg/deduper"
 )
 
 const usage = `pocket-deduper [options]
@@ -36,26 +37,22 @@ func main() {
 		log.Fatal(err)
 	}
 
-	itemSet := make(map[string]*client.Item)
-	deleteItemActions := make([]client.ModifyAction, 0)
+	duplicateItems := deduper.GetDuplicateItems(res.List)
 
-	for _, item := range res.List {
-		item := item
-
-		if existingItem := itemSet[item.ResolvedURL]; existingItem == nil {
-			itemSet[item.ResolvedURL] = &item
-		} else {
-			deleteItemActions = append(deleteItemActions, *client.NewDeleteAction(item.ItemID))
-			fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
-		}
+	if len(duplicateItems) == 0 {
+		fmt.Println("\n✔ No duplicate items found")
+		return
 	}
 
-	if len(deleteItemActions) == 0 {
-		fmt.Println("\n✔ No duplicate items found")
-	} else {
-		_, err = pocketClient.Modify(deleteItemActions)
-		if err != nil {
-			log.Fatal(err)
-		}
+	deleteItemActions := make([]client.ModifyAction, 0)
+
+	for _, item := range duplicateItems {
+		deleteItemActions = append(deleteItemActions, *client.NewDeleteAction(item.ItemID))
+		fmt.Printf("\n● Duplicate item: %s", item.ResolvedTitle)
+	}
+
+	_, err = pocketClient.Modify(deleteItemActions)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
