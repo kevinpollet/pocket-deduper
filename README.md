@@ -29,7 +29,7 @@ Options:
 -help         Prints this text.
 ```
 
-### Get a Consumer Key <!-- omit in toc -->
+## Obtain Consumer Key
 
 1. Go to https://getpocket.com/developer/apps/new
 2. Enter App `name` and `description`

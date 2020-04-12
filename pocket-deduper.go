@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-deduper/pocket"
+	"github.com/kevinpollet/pocket-deduper/pkg/pocket"
 )
 
 const usage = `pocket-deduper [options]
@@ -20,7 +20,7 @@ var consumerKey = flag.String("consumerKey", "", "")
 
 func main() {
 	flag.Usage = func() {
-		fmt.Println(usage)
+		fmt.Print(usage)
 		os.Exit(2) // nolint
 	}
 	flag.Parse()
