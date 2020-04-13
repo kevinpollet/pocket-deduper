@@ -1,6 +1,6 @@
 package deduper
 
-import "github.com/kevinpollet/pocket-deduper/pkg/client"
+import "github.com/kevinpollet/pocket-deduper/client"
 
 func GetDuplicateItems(items map[string]client.Item) []client.Item {
 	itemsByURL := make(map[string]bool)

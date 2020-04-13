@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/kevinpollet/pocket-deduper/pkg/client"
-	"github.com/kevinpollet/pocket-deduper/pkg/deduper"
+	"github.com/kevinpollet/pocket-deduper/client"
+	"github.com/kevinpollet/pocket-deduper/deduper"
 )
 
 const usage = `pocket-deduper [options]
