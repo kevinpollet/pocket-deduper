@@ -1,23 +1,11 @@
-# pocket-deduper <!-- omit in toc -->
-
-[![Build Status](https://github.com/kevinpollet/pocket-deduper/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-deduper/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-deduper)](https://goreportcard.com/report/github.com/kevinpollet/pocket-deduper)
-[![License](https://img.shields.io/github/license/kevinpollet/pocket-deduper)](./LICENSE)
+# pocket-deduper
 
 Remove duplicates from your [Pocket](https://app.getpocket.com/) list.
 
-## Table of Contents <!-- omit in toc -->
-
-- [Install](#install)
-- [Usage](#usage)
-- [Authorization](#authorization)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Install
+## Installation
 
 ```shell
-go get github.com/kevinpollet/pocket-deduper
+go install github.com/kevinpollet/pocket-deduper
 ```
 
 ## Usage
@@ -33,8 +21,9 @@ Options:
 
 ## Authorization
 
-The **pocket-deduper** CLI must be authorized to access your Pocket account through the [API](https://getpocket.com/developer/).
-The first step is to obtain a `Consumer key` used by the CLI to negotiate an access token:   
+The **pocket-deduper** CLI must be authorized to access your Pocket account through
+the [API](https://getpocket.com/developer/). The first step is to obtain a `Consumer key` used by the CLI to negotiate
+an access token:
 
 1. Go to https://getpocket.com/developer/apps/new.
 2. Enter the App `name` and `description`.
@@ -44,16 +33,17 @@ The first step is to obtain a `Consumer key` used by the CLI to negotiate an acc
 6. Create Application.
 7. Copy and keep your `Consumer Key` secret.
 
-Then, you will have to pass this `Consumer Key` as a CLI flag as described in the [Usage](#usage) section.  
+Then, you will have to pass this `Consumer Key` as a CLI flag as described in the [Usage](#usage) section.
 
 ## Contributing
 
-Contributions are welcome!
+PRs are welcome!
 
-Want to file a bug, request a feature or contribute some code?
+Want to file a bug or request a feature?
 
 1. Check out the [Code of Conduct](./CODE_OF_CONDUCT.md).
-2. Check for an existing [issue](https://github.com/kevinpollet/pocket-deduper/issues) corresponding to your bug or feature request.
+2. Check for an existing [issue](https://github.com/kevinpollet/pocket-deduper/issues) corresponding to your bug or
+   feature request.
 3. Open an issue to describe your bug or feature request.
 
 ## License
