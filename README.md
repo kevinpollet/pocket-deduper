@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/kevinpollet/pocket-deduper/workflows/build/badge.svg)](https://github.com/kevinpollet/pocket-deduper/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/kevinpollet/pocket-deduper)](https://goreportcard.com/report/github.com/kevinpollet/pocket-deduper)
-[![License](https://img.shields.io/github/license/kevinpollet/pocket-deduper)](./LICENSE.md)
+[![License](https://img.shields.io/github/license/kevinpollet/pocket-deduper)](./LICENSE)
 
 Remove duplicates from your [Pocket](https://app.getpocket.com/) list.
 
@@ -58,4 +58,4 @@ Want to file a bug, request a feature or contribute some code?
 
 ## License
 
-[MIT](./LICENSE.md)
+[MIT](./LICENSE)
