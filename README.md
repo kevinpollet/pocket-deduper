@@ -5,7 +5,7 @@ Remove duplicates from your [Pocket](https://app.getpocket.com/) list.
 ## Installation
 
 ```shell
-go install github.com/kevinpollet/pocket-deduper
+go install github.com/kevinpollet/pocket-deduper@v0.1.0
 ```
 
 ## Usage
