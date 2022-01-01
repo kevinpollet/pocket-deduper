@@ -2,17 +2,19 @@ package deduper
 
 import "github.com/kevinpollet/pocket-deduper/client"
 
+// GetDuplicateItems returns the duplicated items in the given client.Item map.
 func GetDuplicateItems(items map[string]client.Item) []client.Item {
-	itemsByURL := make(map[string]bool)
-	duplicates := make([]client.Item, 0)
+	itemsByURL := make(map[string]struct{})
+
+	var ret []client.Item
 
 	for _, item := range items {
-		if itemsByURL[item.ResolvedURL] {
-			duplicates = append(duplicates, item)
+		if _, exists := itemsByURL[item.ResolvedURL]; exists {
+			ret = append(ret, item)
 		}
 
-		itemsByURL[item.ResolvedURL] = true
+		itemsByURL[item.ResolvedURL] = struct{}{}
 	}
 
-	return duplicates
+	return ret
 }

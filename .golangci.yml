@@ -1,4 +1,18 @@
 linters:
   enable-all: true
   disable:
-    - gochecknoglobals
+    - interfacer # Deprecated.
+    - golint # Deprecated.
+    - scopelint # Deprecated.
+    - maligned # Deprecated.
+    - gochecknoglobals # Too strict.
+    - exhaustivestruct # Too strict.
+    - gomnd # Too strict.
+    - tagliatelle # Not relevant.
+    - nlreturn # Too strict.
+    - forbidigo # Too strict.
+    - goerr113 # Too strict.
+    - lll # Not relevant
+    - contextcheck # False positive.
+    - varnamelen # Not relevant.
+    - wrapcheck # Too strict.

@@ -14,9 +14,9 @@ go install github.com/kevinpollet/pocket-deduper
 pocket-deduper [options]
 
 Options:
--consumerKey  Pocket API consumer key.
--dryRun       Print duplicate items without removing them from Pocket.
--help         Prints this text.
+-consumer-key  Sets the Pocket API consumer key.
+-dry-run       Prints duplicate items without removing them from Pocket.
+-help          Prints this text.
 ```
 
 ## Authorization
